@@ -37,14 +37,50 @@ public class TestCase {
 	    System.out.println("checking s4.B183343.Frequencer");
 	    myObject = new s4.B183343.Frequencer();
 	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("H".getBytes());
+	    myObject.setTarget(" ".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+      System.out.print("\n");
 	}
 	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
+    System.out.println("Exception occurred: STOP");
+    System.out.println("Error is "+e+"\n");
+	}//true
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183343.Frequencer");
+      myObject = new s4.B183343.Frequencer();
+      myObject.setSpace("Hi Ho Hi Ho".getBytes());
+      myObject.setTarget("".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"targetlength0\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+      if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+      System.out.print("\n");
+  }
+  catch(Exception e) {
+    System.out.println("Exception occurred: STOP");
+    System.out.println("Error is "+e+"\n");
+  }//targetlength=0
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183343.Frequencer");
+      myObject = new s4.B183343.Frequencer();
+      myObject.setSpace("".getBytes());
+      myObject.setTarget("H".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"H\" in \"spacelength0\" appears "+freq+" times. ");
+      if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+       System.out.print("\n");
+  }
+  catch(Exception e) {
+    System.out.println("Exception occurred: STOP");
+    System.out.println("Error is "+e+"\n");
+  }//spacelength=0
 
   try {
 	    FrequencerInterface  myObject;
@@ -58,8 +94,9 @@ public class TestCase {
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}// confirm exception1
+    System.out.println("Exception occurred: STOP");
+    System.out.println("Error is "+e+"\n");
+	}// confirm exception1 (no space)
 
   try {
 	    FrequencerInterface  myObject;
@@ -73,43 +110,70 @@ public class TestCase {
 	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 	}
 	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}// confirm exception1
+    System.out.println("Exception occurred: STOP");
+    System.out.println("Error is "+e+"\n");
+	}// confirm exception2 (no target)
+
+
 
   try {
-	    FrequencerInterface  myObject;
-	    int freq;
-	    System.out.println("checking s4.B183343.Frequencer");
-	    myObject = new s4.B183343.Frequencer();
-	    myObject.setSpace("Hi Ho Hi Ho".getBytes());
-	    myObject.setTarget("".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"no target\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183343.Frequencer");
+      myObject = new s4.B183343.Frequencer();
+      myObject.setSpace("aaaaa".getBytes());
+      myObject.setTarget("aa".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"aa\" in \"aaaaa\" appears "+freq+" times. ");
+      if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+      System.out.println("Error is "+e+"\n");
+  }// confirm1 
+
+
 
   try {
-	    FrequencerInterface  myObject;
-	    int freq;
-	    System.out.println("checking s4.B183343.Frequencer");
-	    myObject = new s4.B183343.Frequencer();
-	    myObject.setSpace("".getBytes());
-	    myObject.setTarget("H".getBytes());
-	    freq = myObject.frequency();
-	    System.out.print("\"H\" in \"no space\" appears "+freq+" times. ");
-	    if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
-	}
-	catch(Exception e) {
-	    System.out.println("Exception occurred: STOP");
-	}
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183343.Frequencer");
+      myObject = new s4.B183343.Frequencer();
+      myObject.setSpace("Hi Ho Hi Ho".getBytes());
+      myObject.setTarget("Hi Ho Hi Ho Hi".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"Hi Ho Hi Ho Hi\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+      if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+      System.out.println("Error is "+e+"\n");
+  }// confirm2
+
+  try {
+      FrequencerInterface  myObject;
+      int freq;
+      System.out.println("checking s4.B183343.Frequencer");
+      myObject = new s4.B183343.Frequencer();
+      myObject.setSpace("Hi".getBytes());
+      myObject.setTarget("HHHHHHH".getBytes());
+      freq = myObject.frequency();
+      System.out.print("\"HHHHHHH\" in \"Hi\" appears "+freq+" times. ");
+      if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+  }
+  catch(Exception e) {
+      System.out.println("Exception occurred: STOP");
+      System.out.println("Error is "+e+"\n");
+  }// confirm3
+
+
+
+
 
 	try {
 	    InformationEstimatorInterface myObject;
 	    double value;
-	    System.out.println("checking s4.B183343.InformationEstimator");
+	    System.out.println("\nchecking s4.B183343.InformationEstimator");
 	    myObject = new s4.B183343.InformationEstimator();
 	    myObject.setSpace("3210321001230123".getBytes());
 	    myObject.setTarget("0".getBytes());
