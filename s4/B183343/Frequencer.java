@@ -130,8 +130,7 @@ public class Frequencer implements FrequencerInterface{
 			        suffixArray[j]=buf;
 
 			  }
-//			  printSuffixArray();
-//			  System.out.println("----------------------"+j+"\n");
+
 		  }
 
 //		  System.out.println("----"+position+"\n");
@@ -139,6 +138,8 @@ public class Frequencer implements FrequencerInterface{
 //		  System.out.println("----\n\n\n");
 //
 	  }
+		printSuffixArray();
+		System.out.println("----------------------\n");
 
 	    }
 
@@ -165,7 +166,7 @@ public class Frequencer implements FrequencerInterface{
 
 
 
-	    	for(int a=suffixArray[i];j<end;a++,j++){
+	    	for(int a=suffixArray[i];a<mySpace.length && j<end;a++,j++){
 	    		if(mySpace[a]>myTarget[j]) {
 	    			return 1;
 	    		}else if(mySpace[a]<myTarget[j] || mySpace.length < end-j) {
