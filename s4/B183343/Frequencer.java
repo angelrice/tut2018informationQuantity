@@ -3,7 +3,6 @@ import java.lang.*;
 import s4.specification.*;
 
 /*package s4.specification;
-
    public interface FrequencerInterface {     // This interface provides the design for frequency counter.
     void setTarget(byte  target[]); // set the data to search.
     void setSpace(byte  space[]);  // set the data to be searched target from.
@@ -177,7 +176,7 @@ public class Frequencer implements FrequencerInterface {
 
         }
 
-        private int targetCompare(int i, int j, int end) { //dictionary search
+        private int targetCompare(int i, int start, int end) { //dictionary search
                 // comparing suffix_i and target_j_end by dictonary order with limitation of length;
                 // if the beginning of suffix_i matches target_j_end, and suffix is longer than target  it returns 0;
                 // if suffix_i > target_j_end it return 1;
@@ -198,15 +197,30 @@ public class Frequencer implements FrequencerInterface {
                 //
                 // ****  Please write code here... ***
 
-                for(int a=suffixArray[i]; j<end; a++,j++) {
-                        if(mySpace[a]>myTarget[j]) {
-                                return 1;
-                        }else if(mySpace[a]<myTarget[j] || mySpace.length < end-j) {
-                                return -1;
-                        }else if(mySpace[a]==myTarget[j] && mySpace.length-a < end-j) {
-                                return -1;
-                        }
-                }
+                //liner
+                // for(int a=suffixArray[i]; start<end; a++,start++) {
+                //         if(mySpace[a]>myTarget[start]) {
+                //                 return 1;
+                //         }else if(mySpace[a]<myTarget[start] || mySpace.length < end-start) {
+                //                 return -1;
+                //         }else if(mySpace[a]==myTarget[start] && mySpace.length-a < end-start) {
+                //                 return -1;
+                //         }
+                // }
+
+
+                  // binary search
+                  int mid = i;
+                  for(int a=suffixArray[mid]; start<end; a++,start++) {
+                          if(mySpace[a]>myTarget[start]) {
+                                  return 1;
+                          }else if(mySpace[a]<myTarget[start] || mySpace.length < end-start) {
+                                  return -1;
+                          }else if(mySpace[a]==myTarget[start] && mySpace.length-a < end-start) {
+                                  return -1;
+                          }
+                  }
+
 
                 return 0; // This line should be modified.
         }
@@ -218,13 +232,36 @@ public class Frequencer implements FrequencerInterface {
                 // For "Ho ", it will return 6 for "Hi Ho Hi Ho".
                 //
                 // ****  Please write code here... ***
-                for(int i = 0; i<suffixArray.length; i++) {
-                        if(targetCompare(i,start,end)==0) {
-                                return i;
-                        }
-                }
 
-                //
+                int mid = 0;
+                int left=0;
+                int right=suffixArray.length-1;
+
+                //liner
+                // for(int i = 0; i<suffixArray.length; i++) {
+                //         if(targetCompare(i,start,end)==0) {
+                //                 return i;
+                //         }
+                // }
+
+                //binary
+                while(left<=right){
+                  mid=(left+right)/2;
+                  if(targetCompare(mid,start,end)==-1) {
+                      left = mid + 1;
+                  }else if(targetCompare(mid,start,end)==1){
+                      right = mid - 1;
+                  }else if(targetCompare(mid,start,end)==0){
+                    while(targetCompare(mid,start,end)!=-1){
+                      // System.out.println("start:"+mid);
+                      mid=mid-1;
+                      if(mid==-1){
+                        return 0;
+                      }
+                    }
+                    return mid+1;
+                  }
+                }
                 return suffixArray.length; // This line should be modified.
         }
 
@@ -235,12 +272,37 @@ public class Frequencer implements FrequencerInterface {
                 // For "Ho ", it will return 7 for "Hi Ho Hi Ho".
                 //
                 // ****  Please write code here... ***
-                for(int i = 0; i<suffixArray.length; i++) {
-                        if(targetCompare(i,start,end)==1) {
-                                return i;
-                        }
+
+                int mid = 0;
+                int left=0;
+                int right=suffixArray.length-1;
+
+                //liner
+                // for(int i = 0; i<suffixArray.length; i++) {
+                //         if(targetCompare(i,start,end)==1) {
+                //                 return i;
+                //         }
+                // }
+
+                //binary
+                while(left<=right){
+                  mid=(left+right)/2;
+                  if(targetCompare(mid,start,end)==-1) {
+                      left = mid + 1;
+                  }else if(targetCompare(mid,start,end)==1){
+                      right = mid - 1;
+                  }else if(targetCompare(mid,start,end)==0){
+                    while(targetCompare(mid,start,end)!=1){
+                      // System.out.println("end:"+mid);
+                      mid=mid+1;
+                      if(mid>suffixArray.length-1){
+                        return suffixArray.length;
+                      }
+                    }
+                    return mid;
+                  }
                 }
-                //
+
                 return suffixArray.length; // This line should be modified.
         }
 
@@ -276,7 +338,7 @@ public class Frequencer implements FrequencerInterface {
                 try {
                         frequencerObject = new Frequencer();
                         frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
-                        frequencerObject.printSuffixArray(); // you may use this line for DEBUG
+                        // frequencerObject.printSuffixArray(); // you may use this line for DEBUG
                         /* Example from "Hi Ho Hi Ho"
                            0: Hi Ho
                            1: Ho
@@ -291,8 +353,8 @@ public class Frequencer implements FrequencerInterface {
                            A:o Hi Ho
                          */
 
-                        // frequencerObject.setTarget("H".getBytes());
-                        // int end = 1;
+                        frequencerObject.setTarget("H".getBytes());
+                        int end = 1;
 
                         // ****  Please write code to check subByteStartIndex, and subByteEndIndex
                         // System.out.println(frequencerObject.targetCompare(0,0,end ));
@@ -306,14 +368,15 @@ public class Frequencer implements FrequencerInterface {
                         // System.out.println(frequencerObject.targetCompare(8,0,end ));
                         // System.out.println(frequencerObject.targetCompare(9,0,end ));
                         // System.out.println(frequencerObject.targetCompare(10,0,end ));
-                        //
+
 
                         int result = frequencerObject.frequency();
-                //         System.out.print("Freq = "+ result+" ");
-                //         if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+                        System.out.print("Freq = "+ result+" ");
+                        if(4 == result) { System.out.println("OK"); } else {System.out.println("WRONG"); }
                 }
                 catch(Exception e) {
                         System.out.println("STOP");
+                        System.out.println(e);
                 }
         }
 }
