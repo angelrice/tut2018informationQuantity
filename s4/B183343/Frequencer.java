@@ -1,5 +1,4 @@
 package s4.B183343;
-import java.lang.*;
 import s4.specification.*;
 
 /*package s4.specification;
@@ -148,9 +147,7 @@ public class Frequencer implements FrequencerInterface {
                 //
                 //
                 // ****  Please write code here... ***
-                int buf=0;
-                int position=0;
-                int j=0;
+
 //bubble sort
                 // for(position=0; position<mySpace.length-1; position++) {
                 //
@@ -247,19 +244,21 @@ public class Frequencer implements FrequencerInterface {
                 //binary
                 while(left<=right){
                   mid=(left+right)/2;
-                  if(targetCompare(mid,start,end)==-1) {
+                  int result=targetCompare(mid,start,end);
+                  if(result==-1) {
                       left = mid + 1;
-                  }else if(targetCompare(mid,start,end)==1){
+                  }else if(result==1){
                       right = mid - 1;
-                  }else if(targetCompare(mid,start,end)==0){
-                    while(targetCompare(mid,start,end)!=-1){
-                      // System.out.println("start:"+mid);
-                      mid=mid-1;
-                      if(mid==-1){
-                        return 0;
-                      }
+                  }else if(result==0){
+                    if(mid-1<0){
+                      return 0;
                     }
-                    return mid+1;
+                    if(targetCompare(mid-1,start,end)!=-1){
+                      right = mid - 1;
+                    }else{
+                      // System.out.println("start:"+mid);
+                      return mid;
+                    }
                   }
                 }
                 return suffixArray.length; // This line should be modified.
@@ -287,20 +286,23 @@ public class Frequencer implements FrequencerInterface {
                 //binary
                 while(left<=right){
                   mid=(left+right)/2;
-                  if(targetCompare(mid,start,end)==-1) {
+                  int result=targetCompare(mid,start,end);
+                  if(result==-1) {
                       left = mid + 1;
-                  }else if(targetCompare(mid,start,end)==1){
+                  }else if(result==1){
                       right = mid - 1;
-                  }else if(targetCompare(mid,start,end)==0){
-                    while(targetCompare(mid,start,end)!=1){
-                      // System.out.println("end:"+mid);
-                      mid=mid+1;
-                      if(mid>suffixArray.length-1){
-                        return suffixArray.length;
-                      }
+                  }else if(result==0){
+                    if(mid+1>suffixArray.length-1){
+                      return suffixArray.length;
                     }
-                    return mid;
+                    if(targetCompare(mid+1,start,end)!=1){
+                      left = mid + 1;
+                    }else{
+                      // System.out.println("end:"+mid);
+                      return mid+1;
+                    }
                   }
+
                 }
 
                 return suffixArray.length; // This line should be modified.
@@ -354,7 +356,6 @@ public class Frequencer implements FrequencerInterface {
                          */
 
                         frequencerObject.setTarget("H".getBytes());
-                        int end = 1;
 
                         // ****  Please write code to check subByteStartIndex, and subByteEndIndex
                         // System.out.println(frequencerObject.targetCompare(0,0,end ));
