@@ -20,6 +20,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
         // Code to tet, *warning: This code condtains intentional problem*
         byte [] myTarget; // data to compute its information quantity
         byte [] mySpace; // Sample space to compute the probability
+        boolean flag=false;
         FrequencerInterface myFrequencer; // Object for counting frequency
 
         byte [] subBytes(byte [] x, int start, int end) {
@@ -36,6 +37,7 @@ public class InformationEstimator implements InformationEstimatorInterface {
         }
 
         public void setTarget(byte [] target) {
+                flag = true;
                 myTarget = target;
         }
         public void setSpace(byte [] space) {
@@ -44,6 +46,10 @@ public class InformationEstimator implements InformationEstimatorInterface {
         }
 
         public double estimation(){
+                if(flag!=true){
+                  System.out.println("target not set\n");
+                  return -1;
+                }
                 boolean [] partition = new boolean[myTarget.length+1];
                 int np;
 
