@@ -95,38 +95,38 @@ public class Frequencer implements FrequencerInterface {
         }
 
         private void merge(int[] merge1,int[] merge2,int[] sortarray){
-                  int i=0;
-                  int j=0;
+                int i=0;
+                int j=0;
 
-                  while(i<merge1.length || j<merge2.length){
-                      if(j>=merge2.length || (i<merge1.length && suffixCompare(merge1[i],merge2[j])==-1)){
-                          sortarray[i+j]=merge1[i];
-                          i++;
-                      }else{
-                          sortarray[i+j]=merge2[j];
-                          j++;
-                      }
-                  }
+                while(i<merge1.length || j<merge2.length) {
+                        if(j>=merge2.length || (i<merge1.length && suffixCompare(merge1[i],merge2[j])==-1)) {
+                                sortarray[i+j]=merge1[i];
+                                i++;
+                        }else{
+                                sortarray[i+j]=merge2[j];
+                                j++;
+                        }
+                }
         }
 
         private void mergesort(int[] sortarray){
-                if(sortarray.length>1){
-                    int m=sortarray.length/2;
-                    int n=sortarray.length-m;
-                    int[] merge1 = new int[m];
-                    int[] merge2 = new int[n];
+                if(sortarray.length>1) {
+                        int m=sortarray.length/2;
+                        int n=sortarray.length-m;
+                        int[] merge1 = new int[m];
+                        int[] merge2 = new int[n];
 
-                    for(int i=0;i<m;i++){
-                      merge1[i]=sortarray[i];
-                    }
+                        for(int i=0; i<m; i++) {
+                                merge1[i]=sortarray[i];
+                        }
 
-                    for(int i=0;i<n;i++){
-                      merge2[i]=sortarray[m+i];
-                    }
+                        for(int i=0; i<n; i++) {
+                                merge2[i]=sortarray[m+i];
+                        }
 
-                    mergesort(merge1);
-                    mergesort(merge2);
-                    merge(merge1,merge2,sortarray);
+                        mergesort(merge1);
+                        mergesort(merge2);
+                        merge(merge1,merge2,sortarray);
                 }
         }
 
@@ -206,17 +206,17 @@ public class Frequencer implements FrequencerInterface {
                 // }
 
 
-                  // binary search
-                  int mid = i;
-                  for(int a=suffixArray[mid]; start<end; a++,start++) {
-                          if(mySpace[a]>myTarget[start]) {
-                                  return 1;
-                          }else if(mySpace[a]<myTarget[start] || mySpace.length < end-start) {
-                                  return -1;
-                          }else if(mySpace[a]==myTarget[start] && mySpace.length-a < end-start) {
-                                  return -1;
-                          }
-                  }
+                // binary search
+                int mid = i;
+                for(int a=suffixArray[mid]; start<end; a++,start++) {
+                        if(mySpace[a]>myTarget[start]) {
+                                return 1;
+                        }else if(mySpace[a]<myTarget[start] || mySpace.length < end-start) {
+                                return -1;
+                        }else if(mySpace[a]==myTarget[start] && mySpace.length-a < end-start) {
+                                return -1;
+                        }
+                }
 
 
                 return 0; // This line should be modified.
@@ -242,24 +242,24 @@ public class Frequencer implements FrequencerInterface {
                 // }
 
                 //binary
-                while(left<=right){
-                  mid=(left+right)/2;
-                  int result=targetCompare(mid,start,end);
-                  if(result==-1) {
-                      left = mid + 1;
-                  }else if(result==1){
-                      right = mid - 1;
-                  }else if(result==0){
-                    if(mid-1<0){
-                      return 0;
-                    }
-                    if(targetCompare(mid-1,start,end)!=-1){
-                      right = mid - 1;
-                    }else{
-                      // System.out.println("start:"+mid);
-                      return mid;
-                    }
-                  }
+                while(left<=right) {
+                        mid=(left+right)/2;
+                        int result=targetCompare(mid,start,end);
+                        if(result==-1) {
+                                left = mid + 1;
+                        }else if(result==1) {
+                                right = mid - 1;
+                        }else if(result==0) {
+                                if(mid-1<0) {
+                                        return 0;
+                                }
+                                if(targetCompare(mid-1,start,end)!=-1) {
+                                        right = mid - 1;
+                                }else{
+                                        // System.out.println("start:"+mid);
+                                        return mid;
+                                }
+                        }
                 }
                 return suffixArray.length; // This line should be modified.
         }
@@ -284,24 +284,24 @@ public class Frequencer implements FrequencerInterface {
                 // }
 
                 //binary
-                while(left<=right){
-                  mid=(left+right)/2;
-                  int result=targetCompare(mid,start,end);
-                  if(result==-1) {
-                      left = mid + 1;
-                  }else if(result==1){
-                      right = mid - 1;
-                  }else if(result==0){
-                    if(mid+1>suffixArray.length-1){
-                      return suffixArray.length;
-                    }
-                    if(targetCompare(mid+1,start,end)!=1){
-                      left = mid + 1;
-                    }else{
-                      // System.out.println("end:"+mid);
-                      return mid+1;
-                    }
-                  }
+                while(left<=right) {
+                        mid=(left+right)/2;
+                        int result=targetCompare(mid,start,end);
+                        if(result==-1) {
+                                left = mid + 1;
+                        }else if(result==1) {
+                                right = mid - 1;
+                        }else if(result==0) {
+                                if(mid+1>suffixArray.length-1) {
+                                        return suffixArray.length;
+                                }
+                                if(targetCompare(mid+1,start,end)!=1) {
+                                        left = mid + 1;
+                                }else{
+                                        // System.out.println("end:"+mid);
+                                        return mid+1;
+                                }
+                        }
 
                 }
 
